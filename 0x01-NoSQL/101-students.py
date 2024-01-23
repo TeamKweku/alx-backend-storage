@@ -3,11 +3,9 @@
 Python function that returns all students sorted by average score
 """
 from pymongo import MongoClient
-from pymongo.collection import Collection
-from typing import List
 
 
-def top_students(mongo_collection: Collection) -> List[dict]:
+def top_students(mongo_collection):
     """
     Returns all students sorted by average score.
 
@@ -18,22 +16,18 @@ def top_students(mongo_collection: Collection) -> List[dict]:
         List of dictionaries representing students sorted by average score.
         Each dictionary includes the key 'averageScore'.
     """
-    students = mongo_collection.aggregate([
-        {
-            "$unwind": "$topics"
-        },
-        {
-            "$group":
+    students = mongo_collection.aggregate(
+        [
+            {"$unwind": "$topics"},
             {
-                "_id": "$_id",
-                "name": {"$first": "$name"},
-                "averageScore": {"$avg": "$topics.score"}
-            }
-        },
-        {
-            "$sort": {"averageScore": -1}
-        }
-    ])
+                "$group": {
+                    "_id": "$_id",
+                    "name": {"$first": "$name"},
+                    "averageScore": {"$avg": "$topics.score"},
+                }
+            },
+            {"$sort": {"averageScore": -1}},
+        ]
+    )
 
     return list(students)
-    
