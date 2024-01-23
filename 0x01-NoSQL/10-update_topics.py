@@ -3,12 +3,9 @@
 This script defines a function to update the topics of
 a school document based on the school name
 """
-from pymongo.collection import Collection
-from typing import List
 
 
-def update_topics(mongo_collection: Collection,
-                  name: str, topics: List[str]) -> None:
+def update_topics(mongo_collection, name, topics):
     """
     Update the topics of a school document based on the school name.
 
