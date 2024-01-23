@@ -3,12 +3,9 @@
 This script defines a function to retrieve a list of schools
 having a specific topic
 """
-from pymongo.collection import Collection
-from typing import List
 
 
-def schools_by_topic(mongo_collection: Collection,
-                     topic: str) -> List[dict]:
+def schools_by_topic(mongo_collection, topic):
     """
     Retrieve a list of schools having a specific topic.
 
